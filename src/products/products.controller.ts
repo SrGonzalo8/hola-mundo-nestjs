@@ -23,4 +23,3 @@ createProduct() {
 return 'Estamos atendiendo una solicitud de tipo Post';
 }
 }
-
