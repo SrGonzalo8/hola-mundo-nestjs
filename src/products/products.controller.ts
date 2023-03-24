@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 @Controller('products')
 export class ProductsController {
 @Get()
@@ -19,7 +19,7 @@ return `Página de detalle de producto ${id}, en tamaño ${size}`;
 }
 
 @Post()
-createProduct() {
-return 'Estamos atendiendo una solicitud de tipo Post';
+createProduct(@Body() body) {
+return `Creo un producto ${body.name} con descripción ${body.description}`;
 }
 }
