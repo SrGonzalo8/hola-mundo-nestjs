@@ -17,7 +17,8 @@ find( @Param() params) {
 return `Estás consultando el producto ${params.id}`;
 }
 @Get(':id/:size')
-findWithSize( @Param() params) {
-return `En esta ruta obtenemos el producto ${params.id}, pero en su tamaño ${params.size}`;
+findWithSize(@Param('id') id: number, @Param('size') size: string ) {
+return `Página de detalle de producto ${id}, en tamaño ${size}`;
 }
+
 }
