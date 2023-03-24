@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 @Controller('products')
 export class ProductsController {
 @Get()
@@ -18,5 +18,9 @@ findWithSize(@Param('id') id: number, @Param('size') size: string ) {
 return `Página de detalle de producto ${id}, en tamaño ${size}`;
 }
 
+@Post()
+createProduct() {
+return 'Estamos atendiendo una solicitud de tipo Post';
+}
 }
 
