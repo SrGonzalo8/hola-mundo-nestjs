@@ -1,49 +1,34 @@
-import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus, Res, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Product } from './interfaces/product/product.interface';
+import { ProductsService } from './products.service';
 @Controller('products')
 export class ProductsController {
+constructor(private readonly productsService: ProductsService) { }
 @Get()
-getHelloInProducts(): string {
-return "Estamos en productos!!!";
+getAllProducts(): Product[] {
+return this.productsService.getAll();
 }
-@Get('hot')
-getSpecialProducts(): string {
-return "Te vamos a mostrar los productos más calientes!!";
-}
-
 @Get(':id')
-find(@Res() response, @Param('id') id: number) {
-if(id < 100) {
-return response.status(HttpStatus.OK).send(`Página del producto ${id}`);
-} else {
-return response.status(HttpStatus.NOT_FOUND).send(`Producto inexistente`);
+find(@Param('id') id: number) {
+return this.productsService.getId(id);
 }
-}
-
-@Get(':id/:size')
-findWithSize(@Param('id') id: number, @Param('size') size: string ) {
-return `Página de detalle de producto ${id}, en tamaño ${size}`;
-}
-@Post()
-createProduct(
-@Body('name') name: string,
-@Body('description') description: string
-) {
-return `Creo el producto ${name} con descripción ${description}.`;
-}
-
 @Post()
 @HttpCode(HttpStatus.NO_CONTENT)
-NoContentProduct(@Body() body) {
-return body;
-}
-@Get('ruta-error-404')
-@HttpCode(HttpStatus.NOT_FOUND)
-rutaConError404() {
-return 'Esto es un error 404!!';
+createProduct(
+@Body() body,
+) {
+this.productsService.insert(body);
 }
 @Put(':id')
-update(@Param('id') id: number, @Body() body) {
-return `Estás haciendo una operación de actualización del recurso ${id}
-con ${body.name} y ${body.description}`;
+update(
+@Param('id') id: number,
+@Body() body,
+) {
+return this.productsService.update(id, body);
+}
+@Delete(':id')
+@HttpCode(HttpStatus.NO_CONTENT)
+delete(@Param('id') id: number) {
+this.productsService.delete(id);
 }
 }
