@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch, Post, Put } from '@nestjs/common';
 import { Product } from './interfaces/product/product.interface';
 import { ProductsService } from './products.service';
 import { ProductDto } from './dto/product.dto/product.dto';
 import { ProductPatchDto } from './dto/product-patch.dto/product-patch.dto';
+=======
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Product } from './interfaces/product/product.interface';
+import { ProductsService } from './products.service';
+>>>>>>> parent of d24bc63 (dto)
 @Controller('products')
 export class ProductsController {
 products: any;
@@ -37,6 +43,7 @@ delete(id: number) {
     throw new HttpException(`No existe el producto ${id}`, HttpStatus.NOT_FOUND);
     }
 }
+<<<<<<< HEAD
 
 getId(id: number): Product {
     const product = this.products.find( (item: Product) => item.id == id);
@@ -62,4 +69,6 @@ async patch(
 ) {
 return this.productsService.patch(id, body);
 }
+=======
+>>>>>>> parent of d24bc63 (dto)
 }
