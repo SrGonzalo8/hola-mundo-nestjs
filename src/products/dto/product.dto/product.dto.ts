@@ -7,4 +7,5 @@ name: string;
 description: string;
 @IsInt()
 stock: number;
+
 }
