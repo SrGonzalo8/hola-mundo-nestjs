@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put} from '@nestjs/common';
 import { Product } from './interfaces/product/product.interface';
 import { ProductsService } from './products.service';
+import { ProductDto } from './dto/product.dto/product.dto';
+import { Patch } from '@nestjs/common';
 @Controller('products')
 export class ProductsController {
 constructor(private readonly productsService: ProductsService) { }
@@ -31,4 +33,21 @@ return this.productsService.update(id, body);
 delete(@Param('id') id: number) {
 this.productsService.delete(id);
 }
+
+@Post()
+@HttpCode(HttpStatus.NO_CONTENT)
+createProduct2(
+@Body() productDto: ProductDto,
+) {
+this.productsService.insert(productDto);
+}
+
+@Patch(':id')
+async patch(
+@Param('id', ParseIntPipe) id: number,
+@Body() body: ProductPatchDto,
+) {
+return this.productsService.patch(id, body);
+}
+
 }
